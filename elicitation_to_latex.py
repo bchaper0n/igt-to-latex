@@ -169,40 +169,46 @@ def clean_example(line):
 with open(input_file_name, 'r', encoding="utf8") as i_file, open(temp_output_file_name, 'w') as o_file:
     
     # format 3 line glosses
+    ex_num = 0
     gloss_line = 1
     lines = i_file.readlines()
     last = lines[-1]
-    for i, line in enumerate(lines):
-        if(line.strip()):
-            curr_line = ""
-            line = clean_example(line)
-            if gloss_line == 1:
-                curr_line = "\\begin{exe}\n\t\ex\n\t\t\gll " + line
-                if curr_line[-1] != ".":
-                    curr_line = curr_line + "."
-            elif gloss_line == 2:
-                curr_line = "\t\t" + line + "\\\\"
-            elif gloss_line == 3:
-                curr_line = "\t\t" + line
-                if curr_line[-1] != ".":
-                    curr_line = curr_line + "."
-            else:
-                curr_line = "\t\t" + line
 
-            if line is last:
-                curr_line = curr_line + "\n\end{exe}\n\n"
-            elif not lines[i+1].strip():
-                curr_line = curr_line + "\n\end{exe}\n\n"
-            elif gloss_line != 2:
-                curr_line = curr_line + "\\\\\n"
-            else:
-                curr_line = curr_line + "\n"
+    try:
+        for i, line in enumerate(lines):
+            if(line.strip()):
+                curr_line = ""
+                line = clean_example(line)
+                if gloss_line == 1:
+                    curr_line = "\\begin{exe}\n\t\ex\n\t\t\gll " + line
+                    if curr_line[-1] != ".":
+                        curr_line = curr_line + "."
+                elif gloss_line == 2:
+                    curr_line = "\t\t" + line + "\\\\"
+                elif gloss_line == 3:
+                    curr_line = "\t\t" + line
+                    if curr_line[-1] != ".":
+                        curr_line = curr_line + "."
+                else:
+                    curr_line = "\t\t" + line
 
-            gloss_line += 1
-            print(curr_line)
-            o_file.write(curr_line)
-        else:
-            gloss_line = 1
+                if line is last:
+                    curr_line = curr_line + "\n\end{exe}\n\n"
+                elif not lines[i+1].strip():
+                    curr_line = curr_line + "\n\end{exe}\n\n"
+                elif gloss_line != 2:
+                    curr_line = curr_line + "\\\\\n"
+                else:
+                    curr_line = curr_line + "\n"
+
+                gloss_line += 1
+                print(curr_line)
+                o_file.write(curr_line)
+            else:
+                gloss_line = 1
+            ex_num += 1
+    except:
+        print("Error: Example " + ex_num + " is formatted incorrectly or has an invalid special character.")
 
     # close files
     i_file.close()
@@ -230,3 +236,6 @@ with open(output_file_name, 'w') as o_file:
 
     # close file
     o_file.close()
+
+    if(os.path.isfile(temp_output_file_name)):
+        os.remove(temp_output_file_name)
