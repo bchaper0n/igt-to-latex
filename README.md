@@ -6,7 +6,7 @@ A project to convert elicitation data to 3 line glosses in LaTeX.
 ## Instructions:
 1. Add required packages to your LaTeX preamble:
 
-    > \usepackage{libertine} % font with many IPA symbols.
+    > \usepackage{libertine} % font with many IPA symbols.          
     > \usepackage{tipa} % fonts and macros for IPA
     
     1.1. Depending on which glossing package you prefer, choose one of the following:
