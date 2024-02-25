@@ -1,16 +1,30 @@
 import os
+import sys
 
 # linguistics gloss abbreviations
 abbrvs = ["SG", "PL", "STR", "DUR", "NMLZ", "SFP", "NEG", "IPFV", "PFV", "PERF", "COMP", "REL", "PROG", "DET", "DIST", "PROX", "FOC", "EMPH", "COP", "OBJ", "SUBJ", "PST", "FUT", "PRES", "MULT", "ABESS", "ABIL", "ABL", "ABS", "ABST", "ABSTR", "ABSV", "ACC", "ACH", "ACT", "AD", "ADD", "ADESS", "ADEL", "ADJ", "ADJZ", "ADM", "ADR", "ADV", "ADVS", "ADVZ", "AEQ", "AFF", "AFFT", "AGT", "AJC", "AL", "ALL", "ALLOC", "AN", "ANA", "AND", "ANT", "ANT", "ANTEL", "ANTESS", "ANTIC", "AC", "ANTIP", "AP", "ANTLAT", "AOR", "APL", "APPOS", "APR", "APRT", "APRX", "APUD", "ARG", "ART", "ASC", "ASRT", "ASSUM", "ATR", "ATTEN", "AUD", "AUG", "AUX", "AV", "AVERT", "AVR", "BEN", "BG", "BV", "CAR", "CARD", "CAUS", "CENT", "CERT", "CESS", "CHEZ", "CIRC", "CIRC", "CIS", "CIT", "CJT", "CLF", "CMPL", "CMPR", "CNJ", "CNTF", "CNTR", "CEXP", "COL", "COM", "COMP", "CON", "CONC", "COND", "CONF", "CONJ", "CONJC", "CONN", "CONR", "CONT", "CONT", "COOP", "COORD", "COP", "COR", "CRAS", "CRS", "CTG", "CTM", "CUS", "CV", "CVB", "DAT", "-DE", "DEB", "DECL", "DED", "DEF", "DEL", "DEM", "DENOM", "DEO", "DEOBJ", "DEP", "DEPR", "DER", "DES", "DEST", "DET", "DETR", "-DI", "DIM", "DIR.EV", "DIR", "DISC", "DISJ", "DIST", "DISTR", "DIV", "DNZ", "DO", "DOM", "DON", "DOX", "DR", "DS", "DSC", "DTR", "DU", "DUB", "DUR", "DV", "DY", "DYN", "EGO", "EGR", "ELA", "EMO", "EMP", "EP", "EPIT", "ERG", "ESS", "EV", "EVIT", "EXAL", "EXCL", "EX", "EXCLAM", "EXESS", "EXH", "EXIST", "EXO", "EXP", "EXT", "FAC", "FAM", "FIN", "FMR", "FOC", "FOR", "FPRT", "FRACT", "FREQ", "FRUS", "FS", "FTV", "FUT", "G1", "G2 ", "G3 ", "G4", "GEN", "GER", "GIV", "GNO", "GNR", "GV", "HAB", "HCR", "HES", "HEST", "HIST", "HOD", "HON", "HORT", "HRS", "HUM", "HYP", "IAM", "IDEO", "IGN", "ILL", "IMM", "IMP", "IMPF", "IMPR", "IMPRS", "IN", "INAL", "INAN", "INCH", "INCL, IN", "IND", "INDH", "INDN", "INEL", "INESS", "INF", "INFL", "INFR", "INJ", "INS", "INT", "INTER", "INTF", "INTL", "INTRV", "INTS", "INTV", "INV", "IO", "IPS", "IRR", "ITER", "ITV", "IV", "JUS", "KIN", "KNWN", "L2", "LAT", "LIG", "LIM", "LNK", "LOC", "LOG", "LV", "MAL", "MAN", "MED", "MID", "MIR", "MIT", "MOD", "MOM", "MONO", "MOV", "MSD", "MUL", "N-", "NARR", "NCOMPL", "NCTM", "NDEF", "NEC", "NEG", "NEUT", "NFIN", "NH", "NMZ", "NOM", "NPFV", "NTR", "NUM", "NVIS", "NVOL", "OBJ", "OBL", "OBV", "ONOM", "OPT", "ORD", "ORIG", "PASS", "PAUS", "PAU", "-PE", "PEG", "PEJ", "PERAMB", "PERL", "PERM", "PERS", "PFV", "-PI", "PL", "PLUP", "PLUR, VPL", "PO", "POEL", "POESS", "POL", "POSS", "POSB", "POST", "POSTL", "POT", "PPRT", "PREC", "PRED", "PREP", "PRET", "PRF", "PRIV", "PRO", "PROB", "PROG", "PROH", "PROL", "PROP", "PROS", "PROSP", "PROT", "PROX", "PRS", "PST", "PTCP", "PTV", "PUNC", "PRP", "PV", "PVB", "QUAL", "QUANT", "QUOT", "-R", "RAR", "REAL", "REC", "RECP", "REF", "REFL", "REG", "REGR", "REL", "REM", "REP", "RES", "RESP", "RET", "REV", "ROOT", "ROY", "RPT", "RQ", "RST", "RV", "SAP", "SBEL", "SBESS", "SBJ", "SCEP", "SE", "SEC", "SEJ", "SEM", "SEN", "SEP", "SEQ", "SER", "SG", "SGV", "SIM", "SIMV", "SIT", "SJV", "SKT", "SMBL", "SOC", "SP", "SPECFR", "SPECL", "SPKR", "SS", "STAT", "STEM", "SUB", "SUBL", "SUBR", "SUP", "SUP", "SUPEL", "SUPER", "SUPESS", "SUPL", "SUPP", "-T", "TA", "TAG", "TAM", "TEL", "TEMP", "TENT", "TER", "TKN", "TNS", "TOP", "TOT", "TR", "TRANSL", "TRI", "TRN", "TRZ", "TVF", "UNSP", "UR", "UTIL", "UV", "-V", "VAL", "VB", "VBZ", "VD", "VE", "VEN", "VER", "VERT", "VIA", "VIRT", "VI", "VIS", "VN", "VOC", "VOL", "VR", "VT", "WHQ", "WIT", "ZO"]
 
 # change these according to your file names
-input_file_name = 'input_unformatted_text.txt'
-temp_output_file_name = 'output_temp_latex.txt'
-output_file_name = 'output_formatted_latex.txt'
+input_file_name = 'input.txt'
+temp_output_file_name = 'output_temp.txt'
+output_file_name = 'output.txt'
+
+if len(sys.argv) > 1: # if argument input
+    if sys.argv[1] == "linguex":
+        goption = 0
+    elif sys.argv[1] == "gb4e":
+        goption = 1
+    else:
+        print("Warning: Glossing package argument invalid; defaulting to linguex.")
+        goption = 0
+else:
+    goption = 0
 
 def clean_example(line):
     # replace tabs with spaces
-    new_str = line.replace("\t", " ")
+    new_str = line.strip()
+
+    new_str = new_str.replace("\t", " ")
 
     # remove new lines at end of lines
     new_str = new_str.replace("\n", "")
@@ -158,7 +172,6 @@ def clean_example(line):
     new_str = new_str.replace("…", "...") 
     new_str = new_str.replace("’", "'") 
     new_str = new_str.replace("→", "-->")
-    new_str = new_str.replace("→", "-->")
      
     new_str = new_str.replace("“", "``")
     new_str = new_str.replace("”", "''")
@@ -169,53 +182,74 @@ def clean_example(line):
 with open(input_file_name, 'r', encoding="utf8") as i_file, open(temp_output_file_name, 'w') as o_file:
     
     # format 3 line glosses
-    ex_num = 0
+    ex_num = 1
     gloss_line = 1
     lines = i_file.readlines()
-    last = lines[-1]
+    first_popped = False
+    last_popped = False
+
+    while not first_popped: # remove initial empty lines
+        if lines[0] in ['\n', '\r\n']:
+            lines.pop(0)
+        else:
+            first_popped = True
+
+    while not last_popped: # remove trailing empty lines
+        if lines[-1] in ['\n', '\r\n']:
+            lines.pop(-1)
+        else:
+            last_popped = True
 
     try:
         for i, line in enumerate(lines):
             if(line.strip()):
-                curr_line = ""
-                line = clean_example(line)
-                if gloss_line == 1:
-                    curr_line = "\\begin{exe}\n\t\ex\n\t\t\gll " + line
-                    if curr_line[-1] != ".":
-                        curr_line = curr_line + "."
-                elif gloss_line == 2:
-                    curr_line = "\t\t" + line + "\\\\"
-                elif gloss_line == 3:
-                    curr_line = "\t\t" + line
-                    if curr_line[-1] != ".":
-                        curr_line = curr_line + "."
-                else:
-                    curr_line = "\t\t" + line
+                c_line = ""
+                c_line = clean_example(line)
+                                
+                if gloss_line == 1: # if 1st line of example, begin example
+                    if goption == 0: # if linguex
+                        c_line = "\\exg. " + c_line
+                    else: # else gb4e
+                        c_line = "\\begin{exe}\n\t\ex\n\t\t\gll " + c_line
+                    if c_line[-1] != ".":
+                        c_line = c_line + "."
+                elif gloss_line == 2: # if 2nd line of example, tab glosses
+                    c_line = "\t\t" + c_line + "\\\\"
+                elif gloss_line == 3: # if 3rd line of example, tab translation and add quotations
+                    if c_line[-1] != "." and c_line[-1] != "?":
+                        c_line = c_line + "."
+                    c_line = "``" + c_line + "''"
+                    c_line = "\t\t" + c_line
+                else: # if any other line of example, tab
+                    c_line = "\t\t" + c_line
 
-                if line is last:
-                    curr_line = curr_line + "\n\end{exe}\n\n"
-                elif not lines[i+1].strip():
-                    curr_line = curr_line + "\n\end{exe}\n\n"
+                if (i+1) == len(lines): # if last line of file, finish example
+                    if goption == 1: # if gb4e
+                        c_line = c_line + "\n\end{exe}"
+                elif lines[i+1] in ['\n', '\r\n']: # if next line is empty, finish example
+                    if goption == 0: # if linguex
+                        c_line = c_line + "\n\n"
+                    else: # else gb4e
+                        c_line = c_line + "\n\end{exe}\n\n"
+                    ex_num += 1
                 elif gloss_line != 2:
-                    curr_line = curr_line + "\\\\\n"
+                    c_line = c_line + "\\\\\n"
                 else:
-                    curr_line = curr_line + "\n"
+                    c_line = c_line + "\n"
 
                 gloss_line += 1
-                print(curr_line)
-                o_file.write(curr_line)
+                print(c_line)
+                o_file.write(c_line)
             else:
                 gloss_line = 1
-            ex_num += 1
     except:
-        print("Error: Example " + ex_num + " is formatted incorrectly or has an invalid special character.")
+        print("Error: Example " + str(ex_num) + ", line " + str(gloss_line-1) + ", is formatted incorrectly or has an invalid character.\n")
 
     # close files
     i_file.close()
     o_file.close()
 
 # replace LING abbreviations to small caps
-
 with open(temp_output_file_name, 'r', encoding="utf8") as i_file:
 
     source = i_file.read()
@@ -223,10 +257,9 @@ with open(temp_output_file_name, 'r', encoding="utf8") as i_file:
     source = source.replace("→", "-->").replace("ː", ":").replace("…", "...").replace("’", "'").replace("“", "``").replace("”", "''")
 
     for abbvr in abbrvs:
-        source = source.replace(abbvr, "\sc{" + abbvr.lower() + "}")
+        source = source.replace(abbvr, "\\textsc{" + abbvr.lower() + "}")
 
-    # close file
-    i_file.close()
+    i_file.close() # close file
 
 with open(output_file_name, 'w') as o_file:
 
@@ -234,8 +267,7 @@ with open(output_file_name, 'w') as o_file:
         #print(line)
     o_file.write(source)
 
-    # close file
-    o_file.close()
+    o_file.close() # close file
 
     if(os.path.isfile(temp_output_file_name)):
         os.remove(temp_output_file_name)
