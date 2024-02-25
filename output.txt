@@ -1,9 +1,0 @@
-\exg. \`{i} n\^{a} l(a) \={i}m\'{o}t\={o}.\\
-		3\textsc{sg} \textsc{prog} buy car\\
-		``S/he was buying a car.''\\
-		--> some comment
-
-\exg. \`{i} n\^{a} \textltailn{}a l(a) \={i}m\'{o}t\={o}.\\
-		3\textsc{sg} \textsc{prog} go buy car\\
-		``He is gone to buy a car.''\\
-		--> answer to where are they?
