@@ -20,22 +20,10 @@ if len(sys.argv) > 1: # if argument input
 else:
     goption = 0
 
-def clean_example(line):
-    # replace tabs with spaces
-    new_str = line.strip()
+def replace_tonal(line):
 
-    new_str = new_str.replace("\t", " ")
-
-    # remove new lines at end of lines
-    new_str = new_str.replace("\n", "")
-
-    # replace up arrow before falling tone character 
-    new_str = new_str.replace("^", "$\\Uparrow$")
-
-    # duplicate replacements due to different encodings
-
-    # special case
-    new_str = new_str.replace("b͡à", "\\t{b\`{a}}")
+    # special case in Igala
+    new_str = line.replace("b͡à", "\\t{b\`{a}}")
 
     # replace all with -
     new_str = new_str.replace("ā", "\={a}")
@@ -53,7 +41,7 @@ def clean_example(line):
     new_str = new_str.replace("Ō", "\={O}")
     new_str = new_str.replace("ū", "\={u}")
     new_str = new_str.replace("ū", "\={u}")
-    new_str = new_str.replace("ɔ̄", "\={\opo}")
+    new_str = new_str.replace("ɔ̄", "\={\\textopeno}")
     new_str = new_str.replace("ɛ̄", "\={\\textepsilon{}}")
     new_str = new_str.replace("n̄", "\={n}")
     
@@ -66,7 +54,7 @@ def clean_example(line):
     new_str = new_str.replace("ô", "\^{o}")
     new_str = new_str.replace("ô", "\^{o}")
     new_str = new_str.replace("û", "\^{u}")
-    new_str = new_str.replace("ɔ̂", "\^{\opo}")
+    new_str = new_str.replace("ɔ̂", "\^{\\textopeno}")
     new_str = new_str.replace("ɛ̂", "\^{\\textepsilon{}}")
 
     # replace all with v
@@ -80,7 +68,7 @@ def clean_example(line):
     new_str = new_str.replace("Ǒ", "\\v{O}")
     new_str = new_str.replace("ǔ", "\\v{u}")
     new_str = new_str.replace("ǔ", "\\v{u}")
-    new_str = new_str.replace("ɔ̌", "\\v{\opo}")
+    new_str = new_str.replace("ɔ̌", "\\v{\\textopeno}")
     new_str = new_str.replace("ɛ̌", "\\v{\textepsilon{}}")
     new_str = new_str.replace("ň", "\\v{\textepsilon{}}")
     new_str = new_str.replace("ŋ̌", "\\v{\\n{}}")
@@ -98,8 +86,8 @@ def clean_example(line):
     new_str = new_str.replace("ó", "\\'{o}")
     new_str = new_str.replace("ú", "\\'{u}")
     new_str = new_str.replace("ú", "\\'{u}")
-    new_str = new_str.replace("ɔ́", "\\'{\opo}")
-    new_str = new_str.replace("Ɔ́", "\\'{\opo}")
+    new_str = new_str.replace("ɔ́", "\\'{\\textopeno}")
+    new_str = new_str.replace("Ɔ́", "\\'{\\textopeno}")
     new_str = new_str.replace("Ó", "\\'{O}")
     new_str = new_str.replace("ɛ́", "\\'{\\textepsilon{}}")
     new_str = new_str.replace("ń", "\\'{n}")
@@ -118,7 +106,7 @@ def clean_example(line):
     new_str = new_str.replace("Ò", "\`{O}")
     new_str = new_str.replace("ù", "\`{u}")
     new_str = new_str.replace("ù", "\`{u}")
-    new_str = new_str.replace("ɔ̀", "\`{\opo}")
+    new_str = new_str.replace("ɔ̀", "\`{\\textopeno}")
     new_str = new_str.replace("ɛ̀", "\`{\\textepsilon{}}")
     new_str = new_str.replace("Ù", "\`{U}")
     new_str = new_str.replace("ǹ", "\`{n}")
@@ -133,14 +121,14 @@ def clean_example(line):
     new_str = new_str.replace("ő", "\H{o}")
     new_str = new_str.replace("ű", "\H{u}")
     new_str = new_str.replace("ű", "\H{u}")
-    new_str = new_str.replace("ɔ̋", "\H{\opo}")
+    new_str = new_str.replace("ɔ̋", "\H{\\textopeno}")
     new_str = new_str.replace("ɛ̋", "\H{\\textepsilon{}}")
     new_str = new_str.replace("n̋", "\H{n}")
 
-    # replace all with varying accent
+    # replace all other contour tones
     new_str = new_str.replace("o᷇", "\\am{o}")
     new_str = new_str.replace("i᷇", "\\am{i}")
-    new_str = new_str.replace("ɔ᷅", "\\textlowrise{\opo}")
+    new_str = new_str.replace("ɔ᷅", "\\textlowrise{\\textopeno}")
     new_str = new_str.replace("o᷅", "\\textlowrise{o}")
     new_str = new_str.replace("a᷄", "\\texthighrise{a}")
     new_str = new_str.replace("e᷄", "\\texthighrise{e}")
@@ -148,23 +136,90 @@ def clean_example(line):
     new_str = new_str.replace("e᷆", "\mg{e}")
     new_str = new_str.replace("u᷆", "\mg{u}")
     new_str = new_str.replace("o᷆", "\mg{o}")
-    new_str = new_str.replace("ɔ᷆", "\mg{\opo}")
+    new_str = new_str.replace("ɔ᷆", "\mg{\\textopeno}")
     new_str = new_str.replace("i᷆", "\mg{i}")
     new_str = new_str.replace("a᷆", "\mg{a}")
 
-    # replace unaccented special chars
-    new_str = new_str.replace("ɳ", "\\textrtailn{}")
+    return new_str
+
+def replace_vowels(line):
+
+    new_str = line.replace("ä", "\"{a}")
+    # TODO: add other umlaut variants
+
+    new_str = new_str.replace("ɨ", "\\textbari{}")
+    new_str = new_str.replace("ʉ", "\\textbaru{}")
+    new_str = new_str.replace("ɯ", "\\textturnm{}")
+    new_str = new_str.replace("ɪ", "\\textsci{}")
+    new_str = new_str.replace("ʏ", "\\textscy{}")
+    new_str = new_str.replace("ʊ", "\\textupsilon{}")
+    new_str = new_str.replace("ø̞", "\|‘{\o}")
+    new_str = new_str.replace("ø", "\o{}")
+    new_str = new_str.replace("ɘ", "\\textreve{}")
+    new_str = new_str.replace("ɵ", "\\textbaro{}")
+    new_str = new_str.replace("ɤ̞", "\|‘{\\textgamma}")
+    new_str = new_str.replace("ɤ", "\\textgamma{}")
+    new_str = new_str.replace("o̞", "\|‘{o}")
+    new_str = new_str.replace("e̞", "\|‘{e}")
+    new_str = new_str.replace("ə", "\\textschwa{}")
+    new_str = new_str.replace("ɛ", "\\textepsilon{}")
+    new_str = new_str.replace("œ", "\oe{}")
+    new_str = new_str.replace("ɜ", "\\textrevepsilon{}")
+    new_str = new_str.replace("ɞ", "\\textcloserevepsilon{}")
+    new_str = new_str.replace("ʌ", "\\textturnv{}")
+    new_str = new_str.replace("ɔ", "\\textopeno{}")
+    new_str = new_str.replace("æ", "\\ae{}")
+    new_str = new_str.replace("ɐ", "\\textturna{}")
+    new_str = new_str.replace("ɶ", "\OE{}")
+    new_str = new_str.replace("ɑ", "\\textscripta{}")
+    new_str = new_str.replace("ɒ", "\\\textturnscripta{}")
+                              
+    return new_str
+
+
+def replace_pulmonic_cons(line):
+
+    new_str = line.replace("ɳ", "\\textrtailn{}")
     new_str = new_str.replace("ɲ", "\\textltailn{}")
+    new_str = new_str.replace("ɱ", "\\textltailm{}")
     new_str = new_str.replace("ŋ", "\\n{}")
     new_str = new_str.replace("ʒ", "\Z{}")
     new_str = new_str.replace("ʤ", "d\Z{}")
-    new_str = new_str.replace("ɔ", "\opo{}")
     new_str = new_str.replace("ɡ", "\\textscriptg{}")
-    new_str = new_str.replace("ɛ", "\\textepsilon{}")
     new_str = new_str.replace("ʃ", "\sh{}")
     new_str = new_str.replace("ɹ", "\\textturnr{}")
-    new_str = new_str.replace("ʷ", "\supw{}")
-    new_str = new_str.replace("ʲ", "\supj{}")
+
+    return new_str
+
+def clean_example(line): 
+
+    # any seemingly duplicate replacements are due to different encodings
+    # replace tabs with spaces
+    new_str = line.strip()
+
+    new_str = new_str.replace("\t", " ")
+
+    # remove new lines at end of lines
+    new_str = new_str.replace("\n", "")
+
+    # replace up arrow before falling tone character 
+    new_str = new_str.replace("^", "$\\Uparrow$")
+
+    # replace characters with tone
+    new_str = replace_tonal(new_str)
+
+    # replace toneless vowels
+    new_str = replace_vowels(new_str)
+
+    # replace common pulmonic consonants
+    new_str = replace_pulmonic_cons(new_str)
+
+    # replace other common symbols/diacritics
+    new_str = new_str.replace("ʷ", "\\textsuperscript{w}")
+    new_str = new_str.replace("ʲ", "\\textsuperscript{j}")
+    new_str = new_str.replace("ʰ", "\\textsuperscript{h}")
+    new_str = new_str.replace("ˤ", "\\textsuperscript{\\textgamma}")
+    new_str = new_str.replace("ˠ", "\\textsuperscript{\\textrevglotstop}")
     new_str = new_str.replace("ː", "\\textlengthmark{}")
     new_str = new_str.replace(":", "\\textlengthmark{}")
     new_str = new_str.replace("ꜛ", "\\textupstep{}")
@@ -238,7 +293,7 @@ with open(input_file_name, 'r', encoding="utf8") as i_file, open(temp_output_fil
                     c_line = c_line + "\n"
 
                 gloss_line += 1
-                print(c_line)
+                #print(c_line)
                 o_file.write(c_line)
             else:
                 gloss_line = 1

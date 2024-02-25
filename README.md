@@ -6,7 +6,8 @@ A project to convert elicitation data to 3 line glosses in LaTeX.
 ## Instructions:
 1. Add required packages to your LaTeX preamble:
 
-    > \usepackage{libertine} %font with many IPA symbols.
+    > \usepackage{libertine} % font with many IPA symbols.
+    > \usepackage{tipa} % fonts and macros for IPA
     
     1.1. Depending on which glossing package you prefer, choose one of the following:
 
@@ -21,12 +22,12 @@ A project to convert elicitation data to 3 line glosses in LaTeX.
     > S/he was buying a car.     
     > --> some comment
 
-3. Go into the console (e.g., Windows Powershell, Terminal) in current directory.
+3. Go into the console (*e.g.,* Windows Powershell, Terminal) in current directory.
 4. Run script
     
     > python elicitation_to_latex.py
     
-    4.1. You can add your preferred glossing package as an argument (default=linguex):
+    4.1. You can add your preferred glossing package as an argument (default=`linguex`):
     
     > python elicitation_to_latex.py gb4e
 
@@ -35,12 +36,12 @@ A project to convert elicitation data to 3 line glosses in LaTeX.
     with `linguex`:
     >       \exg. \`{i} n\^{a} l(a) \={i}m\'{o}t\={o}.\\
     >           3\sc{sg} \sc{prog} buy car\\
-    >           S/he was buying a car.
+    >           ``S/he was buying a car.''
 
     with `gb4e`:
     >     \begin{exe}
     >       \ex
     >           \gll \`{i} n\^{a} l(a) \={i}m\'{o}t\={o}.\\
     >           3\sc{sg} \sc{prog} buy car\\
-    >           S/he was buying a car.
+    >           ``S/he was buying a car.''
     >     \end{exe}

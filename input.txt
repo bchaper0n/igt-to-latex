@@ -5,12 +5,12 @@
 ì nâ l(a) īmótō.
 3SG PROG buy car
 S/he was buying a car.
---> some comment
+→ some comment
 
 ì nâ ɲa l(a) īmótō.        
 3SG PROG go buy car   
 He is gone to buy a car. 
---> answer to where are they?
+→ answer to where are they?
 
 
 
