@@ -4,10 +4,20 @@ A project to convert elicitation data to 3 line glosses in LaTeX.
 
 
 ## Instructions:
-1. Add required packages to your LaTeX preamble:
+1. Add following packages and commands to your LaTeX preamble:
 
-    > \usepackage{libertine} % font with many IPA symbols.          
-    > \usepackage{tipa} % fonts and macros for IPA
+    > \usepackage{libertine} % font with many IPA symbols.  
+    > \usepackage{tipa} % fonts and macros for IPA  
+    >   
+    > \newcommand{\sh}{\textipa{S}}     
+    > \newcommand{\supw}{\textsuperscript{w}}   
+    > \newcommand{\supj}{\textsuperscript{j}}   
+    > \newcommand{\nj}{\textltailn}     
+    > \newcommand{\opo}{\textopeno}     
+    > \newcommand{\E}{\textepsilon}     
+    > \newcommand{\Z}{\textyogh}    
+    > \newcommand{\n}{\textipa{\ng}}    
+    > \newcommand{\turnr}{\textipa{\textturnr}}
     
     1.1. Depending on which glossing package you prefer, choose one of the following:
 
@@ -17,9 +27,9 @@ A project to convert elicitation data to 3 line glosses in LaTeX.
 
 2. Paste your examples (with gloss, translation, and/or notes) in `input.txt`:
    
-    > ì nâ l(a) īmótō           
-    > 3SG PROG buy car           
-    > S/he was buying a car.     
+    > ì nâ l(a) īmótō   
+    > 3SG PROG buy car  
+    > S/he was buying a car.    
     > --> some comment
 
 3. Go into the console (*e.g.,* Windows Powershell, Terminal) in current directory.
