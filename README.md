@@ -21,14 +21,12 @@ A project to convert elicitation data to 3 line glosses in LaTeX.
     > S/he was buying a car.     
     > --> some comment
 
-
-
 3. Go into the console (e.g., Windows Powershell, Terminal) in current directory.
 4. Run `python elicitation_to_latex.py`
     
     4.1. You can add your preferred glossing package as an argument (default=linguex):
     
-    >   python elicitation_to_latex.py gb4e
+    run `python elicitation_to_latex.py gb4e`
 
 5. Results in `output.txt` file:
 
