@@ -1,4 +1,5 @@
-import os
+import ctypes
+import os 
 
 # linguistics gloss abbreviations
 abbrvs = ["SG", "PL", "STR", "DUR", "NMLZ", "SFP", "NEG", "IPFV", "PFV", "PERF", "COMP", "REL", "PROG", "DET", "DIST", "PROX", "FOC", "EMPH", "COP", "OBJ", "SUBJ", "PST", "FUT", "PRES", "MULT", "ABESS", "ABIL", "ABL", "ABS", "ABST", "ABSTR", "ABSV", "ACC", "ACH", "ACT", "AD", "ADD", "ADESS", "ADEL", "ADJ", "ADJZ", "ADM", "ADR", "ADV", "ADVS", "ADVZ", "AEQ", "AFF", "AFFT", "AGT", "AJC", "AL", "ALL", "ALLOC", "AN", "ANA", "AND", "ANT", "ANT", "ANTEL", "ANTESS", "ANTIC", "AC", "ANTIP", "AP", "ANTLAT", "AOR", "APL", "APPOS", "APR", "APRT", "APRX", "APUD", "ARG", "ART", "ASC", "ASRT", "ASSUM", "ATR", "ATTEN", "AUD", "AUG", "AUX", "AV", "AVERT", "AVR", "BEN", "BG", "BV", "CAR", "CARD", "CAUS", "CENT", "CERT", "CESS", "CHEZ", "CIRC", "CIRC", "CIS", "CIT", "CJT", "CLF", "CMPL", "CMPR", "CNJ", "CNTF", "CNTR", "CEXP", "COL", "COM", "COMP", "CON", "CONC", "COND", "CONF", "CONJ", "CONJC", "CONN", "CONR", "CONT", "CONT", "COOP", "COORD", "COP", "COR", "CRAS", "CRS", "CTG", "CTM", "CUS", "CV", "CVB", "DAT", "-DE", "DEB", "DECL", "DED", "DEF", "DEL", "DEM", "DENOM", "DEO", "DEOBJ", "DEP", "DEPR", "DER", "DES", "DEST", "DET", "DETR", "-DI", "DIM", "DIR.EV", "DIR", "DISC", "DISJ", "DIST", "DISTR", "DIV", "DNZ", "DO", "DOM", "DON", "DOX", "DR", "DS", "DSC", "DTR", "DU", "DUB", "DUR", "DV", "DY", "DYN", "EGO", "EGR", "ELA", "EMO", "EMP", "EP", "EPIT", "ERG", "ESS", "EV", "EVIT", "EXAL", "EXCL", "EX", "EXCLAM", "EXESS", "EXH", "EXIST", "EXO", "EXP", "EXT", "FAC", "FAM", "FIN", "FMR", "FOC", "FOR", "FPRT", "FRACT", "FREQ", "FRUS", "FS", "FTV", "FUT", "G1", "G2 ", "G3 ", "G4", "GEN", "GER", "GIV", "GNO", "GNR", "GV", "HAB", "HCR", "HES", "HEST", "HIST", "HOD", "HON", "HORT", "HRS", "HUM", "HYP", "IAM", "IDEO", "IGN", "ILL", "IMM", "IMP", "IMPF", "IMPR", "IMPRS", "IN", "INAL", "INAN", "INCH", "INCL, IN", "IND", "INDH", "INDN", "INEL", "INESS", "INF", "INFL", "INFR", "INJ", "INS", "INT", "INTER", "INTF", "INTL", "INTRV", "INTS", "INTV", "INV", "IO", "IPS", "IRR", "ITER", "ITV", "IV", "JUS", "KIN", "KNWN", "L2", "LAT", "LIG", "LIM", "LNK", "LOC", "LOG", "LV", "MAL", "MAN", "MED", "MID", "MIR", "MIT", "MOD", "MOM", "MONO", "MOV", "MSD", "MUL", "N-", "NARR", "NCOMPL", "NCTM", "NDEF", "NEC", "NEG", "NEUT", "NFIN", "NH", "NMZ", "NOM", "NPFV", "NTR", "NUM", "NVIS", "NVOL", "OBJ", "OBL", "OBV", "ONOM", "OPT", "ORD", "ORIG", "PASS", "PAUS", "PAU", "-PE", "PEG", "PEJ", "PERAMB", "PERL", "PERM", "PERS", "PFV", "-PI", "PL", "PLUP", "PLUR, VPL", "PO", "POEL", "POESS", "POL", "POSS", "POSB", "POST", "POSTL", "POT", "PPRT", "PREC", "PRED", "PREP", "PRET", "PRF", "PRIV", "PRO", "PROB", "PROG", "PROH", "PROL", "PROP", "PROS", "PROSP", "PROT", "PROX", "PRS", "PST", "PTCP", "PTV", "PUNC", "PRP", "PV", "PVB", "QUAL", "QUANT", "QUOT", "-R", "RAR", "REAL", "REC", "RECP", "REF", "REFL", "REG", "REGR", "REL", "REM", "REP", "RES", "RESP", "RET", "REV", "ROOT", "ROY", "RPT", "RQ", "RST", "RV", "SAP", "SBEL", "SBESS", "SBJ", "SCEP", "SE", "SEC", "SEJ", "SEM", "SEN", "SEP", "SEQ", "SER", "SG", "SGV", "SIM", "SIMV", "SIT", "SJV", "SKT", "SMBL", "SOC", "SP", "SPECFR", "SPECL", "SPKR", "SS", "STAT", "STEM", "SUB", "SUBL", "SUBR", "SUP", "SUP", "SUPEL", "SUPER", "SUPESS", "SUPL", "SUPP", "-T", "TA", "TAG", "TAM", "TEL", "TEMP", "TENT", "TER", "TKN", "TNS", "TOP", "TOT", "TR", "TRANSL", "TRI", "TRN", "TRZ", "TVF", "UNSP", "UR", "UTIL", "UV", "-V", "VAL", "VB", "VBZ", "VD", "VE", "VEN", "VER", "VERT", "VIA", "VIRT", "VI", "VIS", "VN", "VOC", "VOL", "VR", "VT", "WHQ", "WIT", "ZO"]
@@ -7,6 +8,18 @@ abbrvs = ["SG", "PL", "STR", "DUR", "NMLZ", "SFP", "NEG", "IPFV", "PFV", "PERF",
 input_file_name = 'input_unformatted_text.txt'
 temp_output_file_name = 'output_temp_latex.txt'
 output_file_name = 'output_formatted_latex.txt'
+
+c_library_name = "clib"
+c_filename = "script_to_ipa"
+
+#os.system("cl " + c_library_name + " " + c_filename + ".cpp")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+handle = ctypes.CDLL(dir_path + "/clib" + c_library_name + ".so")     
+
+handle.My_Function.argtypes = [ctypes.c_int] 
+
+def script_to_IPA(str):
+    return handle.script_to_IPA(str)
 
 def clean_example(line):
     # replace tabs with spaces
