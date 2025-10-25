@@ -1,4 +1,4 @@
-# Textfile glosses to LaTeX
+# IGT to LaTeX
 
 A project to convert [Interlinear Glossed Text (IGT)](https://en.wikipedia.org/wiki/Interlinear_gloss) to 3 line glosses in LaTeX.
 
@@ -56,3 +56,4 @@ A project to convert [Interlinear Glossed Text (IGT)](https://en.wikipedia.org/w
     >           ``S/he was buying a car.''
 
     >     \end{exe}
+
