@@ -1,6 +1,6 @@
 # Textfile glosses to LaTeX
 
-A project to convert elicitation data to 3 line glosses in LaTeX.
+A project to convert [Interlinear Glossed Text (IGT)](https://en.wikipedia.org/wiki/Interlinear_gloss) to 3 line glosses in LaTeX.
 
 
 ## Instructions:
@@ -54,4 +54,5 @@ A project to convert elicitation data to 3 line glosses in LaTeX.
     >           \gll \`{i} n\^{a} l(a) \={i}m\'{o}t\={o}.\\
     >           3\sc{sg} \sc{prog} buy car\\
     >           ``S/he was buying a car.''
+
     >     \end{exe}
